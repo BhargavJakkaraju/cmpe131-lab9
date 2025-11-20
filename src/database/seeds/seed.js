@@ -5,20 +5,18 @@ const { faker } = require('@faker-js/faker');
 async function seed() {
     try {
         const db = await dbPromise;
-
-        console.log('Deleting existing users...');
-        await db.run('DELETE FROM users');
-        await db.run('DELETE FROM sqlite_sequence WHERE name = ?', 'users');
-
-        console.log('Inserting 20 fake users...');
+        
+        console.log('Deleting existing products...');
+        await db.run('DELETE FROM inventory');
+        await db.run('DELETE FROM sqlite_sequence WHERE name = ?', 'inventory');
+        console.log('Inserting 20 fake products...');
 
         const insertPromises = [];
-        for (let i = 0; i < 20; i++) {
-            const name = faker.person.fullName();
-            const email = faker.internet.email({ firstName: name.split(' ')[0], provider: 'example.com' }); // More realistic emails
-
-            const sql = 'INSERT INTO users (name, email) VALUES (?, ?)';
-            insertPromises.push(db.run(sql, name, email));
+        for (let i = 0; i < 20; i++) {            
+            const productName = faker.commerce.productName();
+            const productQuantity = Math.floor(Math.random() * 50) + 1;
+            const sql = 'INSERT INTO inventory (productName, productQuantity) VALUES (?, ?)';
+            insertPromises.push(db.run(sql, productName, productQuantity))
         }
 
         await Promise.all(insertPromises);

@@ -13,16 +13,17 @@ async function setupDatabase() {
             filename: DBSOURCE,
             driver: sqlite3.Database
         });
-
+        
         console.log('Connected to the SQLite database.');
         // use .exec() for statements that don't return rows
-        await db.exec(`CREATE TABLE IF NOT EXISTS users (
+        await db.exec(`CREATE TABLE IF NOT EXISTS inventory (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            email TEXT UNIQUE
+            productName TEXT,
+            productQuantity INTEGER
         )`);
         
         return db;
+
     } catch (err) {
         console.error('Error connecting to the database', err.message);
         throw err;
