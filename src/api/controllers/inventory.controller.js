@@ -13,6 +13,16 @@ class InventoryController {
         }
     }
 
+    //ENDPOINT #1: POST /api/inventory - Add a product to the inventory
+    async createProduct(req, res) {
+        try {
+            const newProduct = await inventoryService.createProduct(req.body);
+            res.status(201).json({ message: "success", data: newProduct });
+        } catch (err) {
+            res.status(400).json({ error: err.message });
+        }
+    }
+
     //TEST ENDPOINTS
     async getAllProducts(req, res) {
         try {
@@ -20,15 +30,6 @@ class InventoryController {
             res.json({ message: "success", data: products });
         } catch (err) {
             res.status(500).json({ error: err.message });
-        }
-    }
-
-    async createProduct(req, res) {
-        try {
-            const newProduct = await inventoryService.createProdct(req.body);
-            res.status(201).json({ message: "success", data: newProduct });
-        } catch (err) {
-            res.status(400).json({ error: err.message });
         }
     }
 
