@@ -38,6 +38,15 @@ class InventoryRepository {
         const result = await db.run('DELETE FROM inventory WHERE id = ?', id);
         return { changes: result.changes };
     }
+
+    async incrementQuantity(productId, quantity) {
+        const db = await getDbPromise;
+        const result = await db.run(
+            'UPDATE inventory SET productQuantity = productQuantity + ? WHERE id = ?',
+            quantity, productId
+        );
+        return { changes: result.changes };
+    }
 }
 
 module.exports = new InventoryRepository();

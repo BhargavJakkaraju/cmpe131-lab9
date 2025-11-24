@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: New Collection
+  contact: {}
+  version: '1.0'
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+- url: http://localhost:8080/api
+  variables: {}
+paths:
+  /inventory:
+    post:
+      tags:
+      - Users
+      summary: http://localhost:8080/api/inventory
+      operationId: http://localhost:8080/api/inventory
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/httplocalhost8080apiinventoryrequest'
+              - examples:
+                - productName: Laptop
+                  productQuantity: 50
+              contentMediaType: application/json
+            example:
+              productName: Laptop
+              productQuantity: 50
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Users
+      summary: New Request1
+      operationId: NewRequest1
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /inventory/25:
+    get:
+      tags:
+      - Users
+      summary: New Request
+      operationId: NewRequest
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /inventory/increment:
+    post:
+      tags:
+      - Users
+      summary: New Request
+      operationId: PostNewRequest
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewRequestRequest'
+              description: ''
+              examples:
+              - - product_id: 25
+                  quantity: 100
+              contentMediaType: application/json
+            example:
+            - product_id: 25
+              quantity: 100
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+components:
+  schemas:
+    httplocalhost8080apiinventoryrequest:
+      title: httplocalhost8080apiinventoryrequest
+      required:
+      - productName
+      - productQuantity
+      type: object
+      properties:
+        productName:
+          type: string
+        productQuantity:
+          type: integer
+          contentEncoding: int32
+      examples:
+      - productName: Laptop
+        productQuantity: 50
+    NewRequestRequest:
+      title: NewRequestRequest
+      required:
+      - product_id
+      - quantity
+      type: object
+      properties:
+        product_id:
+          type: integer
+          contentEncoding: int32
+        quantity:
+          type: integer
+          contentEncoding: int32
+      examples:
+      - product_id: 25
+        quantity: 100
+tags:
+- name: Users
+  description: API endpoints for managing user accounts

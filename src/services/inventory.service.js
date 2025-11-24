@@ -41,6 +41,37 @@ class InventoryService {
         }
         return await inventoryRepository.delete(id);
     }
+
+    async incrementStock(items) {
+        if (!Array.isArray(items) || items.length === 0) {
+            throw new Error('Invalid input: expected a non-empty array of {product_id, quantity} objects');
+        }
+
+        const results = [];
+        for (const item of items) {
+            if (!item.product_id || item.quantity === undefined || item.quantity === null) {
+                throw new Error('Invalid item format: each item must have product_id and quantity');
+            }
+            if (item.quantity < 0) {
+                throw new Error('Quantity must be non-negative');
+            }
+
+            // Check if product exists
+            const product = await inventoryRepository.findById(item.product_id);
+            if (!product) {
+                throw new Error(`Product with id ${item.product_id} not found`);
+            }
+
+            const result = await inventoryRepository.incrementQuantity(item.product_id, item.quantity);
+            results.push({
+                product_id: item.product_id,
+                quantity_added: item.quantity,
+                changes: result.changes
+            });
+        }
+
+        return results;
+    }
 }
 
 module.exports = new InventoryService();

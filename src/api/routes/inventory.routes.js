@@ -16,6 +16,7 @@ router.get("/inventory/:id", inventoryController.getProductById);
 
 //ENDPOINT #4: 
 //POST /api/inventory/increment: Takes a list of {product_id, quantity} to add back to stock
+router.post("/inventory/increment", inventoryController.incrementStock);
 
 
 //TEST ENDPOINTS:

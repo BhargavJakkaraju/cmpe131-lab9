@@ -56,6 +56,16 @@ class InventoryController {
             res.status(500).json({ error: err.message });
         }
     }
+
+    //ENDPOINT #4: POST /api/inventory/increment - Add quantities back to stock
+    async incrementStock(req, res) {
+        try {
+            const results = await inventoryService.incrementStock(req.body);
+            res.json({ message: "success", data: results });
+        } catch (err) {
+            res.status(400).json({ error: err.message });
+        }
+    }
 }
 
 module.exports = new InventoryController();

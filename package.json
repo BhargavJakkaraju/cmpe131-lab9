@@ -11,10 +11,13 @@
   "author": "chungsik song",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
